@@ -1,0 +1,78 @@
+<html>
+
+  <head>
+    <title>Flask App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  </head>
+
+  <body>
+    
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Menu de navigation</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('get_products', sub_cat='Tablettes')}}">Tablettes</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('get_products', sub_cat='Ordinateurs portables')}}">Ordinateurs portables</span></a>
+      </li>
+      
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('get_products', sub_cat='Ordinateurs de bureau')}}">Ordinateurs de bureau</span></a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('get_products', sub_cat='Téléphones')}}">Téléphones</span></a>
+      </li>
+    </ul>
+    
+  </div>
+</nav>
+
+
+<div class="container py-5">
+  <div class="row text-center text-white mb-5">
+      <div class="col-lg-7 mx-auto">
+          <h1 class="display-4">Product List</h1>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-lg-8 mx-auto">
+          <!-- List group-->
+          <ul class="list-group shadow">
+              <!-- list group item-->
+
+              {% for k, result in results.iterrows() %}
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <a href="{{ url_for('get_product_details', id = result['id']) }}">
+                      <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                          <div class="media-body order-2 order-lg-1">
+                              <h5 class="mt-0 font-weight-bold mb-2">{{ result['title'] }}</h5>
+                              
+                              <div class="d-flex align-items-center justify-content-between mt-1">
+                                  <h6 class="font-weight-bold my-2">{{ result['price'] }} DH</h6>
+                                  
+                              </div>
+                          </div><img src="{{ result['hd_images'] }}" alt="{{ result['title'] }}" width="200" class="ml-lg-5 order-1 order-lg-2">
+                      </div> <!-- End -->
+                    </a>
+                </li> <!-- End -->
+              {% endfor %}
+
+              <!-- list group item-->
+              
+          </ul> <!-- End -->
+      </div>
+  </div>
+</div>
+  
+  </body>
+</html> 
